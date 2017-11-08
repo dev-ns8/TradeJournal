@@ -1,9 +1,11 @@
 package dataAbstraction;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.Date;
 
 public class Trade {
+	public String instrument;
 	public Date entry;
 	public Date exit;
 	public BigDecimal entryPrice;
@@ -15,8 +17,14 @@ public class Trade {
 	public BigDecimal takeProfit;
 	public BigDecimal commissions;
 	public String notes;
-	
-	private Trade(Date entry, Date exit, BigDecimal entryPrice, BigDecimal exitPrice, String setup_classification, String action, int quantity, BigDecimal stopLoss, BigDecimal takeProfit, BigDecimal commissions, String notes) {
+	public Boolean isComplete;
+	public BigDecimal pnl;
+	public Duration trade_duration;
+	public Boolean winner;  //0 if Loser 1 if winner
+
+	//TODO:: Update constructor with new
+
+	public Trade(Date entry, Date exit, BigDecimal entryPrice, BigDecimal exitPrice, String setup_classification, String action, int quantity, BigDecimal stopLoss, BigDecimal takeProfit, BigDecimal commissions, String notes, Boolean isComplete, BigDecimal pnl, Duration trade_duration, Boolean winner) {
 		this.entry = entry;
 		this.exit = exit;
 		this.entryPrice = entryPrice;
@@ -28,9 +36,33 @@ public class Trade {
 		this.takeProfit = takeProfit;
 		this.commissions = commissions;
 		this.notes = notes;
+		this.isComplete = isComplete;
+		this.pnl = pnl;
+		this.trade_duration = trade_duration;
+		this.winner = winner;
 	}
+
+	public Trade(Object args) {
+		System.out.println(args);
+	}
+
+
+
+	/*private Trade(Date entry, Date exit, BigDecimal entryPrice, BigDecimal exitPrice, String setup_classification, String action, int quantity, BigDecimal stopLoss, BigDecimal takeProfit, BigDecimal commissions, String notes) {
+		this.entry = entry;
+		this.exit = exit;
+		this.entryPrice = entryPrice;
+		this.exitPrice = exitPrice;
+		this.setup_classification = setup_classification;
+		this.action = action;
+		this.quantity = quantity;
+		this.stopLoss = stopLoss;
+		this.takeProfit = takeProfit;
+		this.commissions = commissions;
+		this.notes = notes;
+	}*/
 	
-	
+// GETTERS and SETTERS
 	public Date getEntry() {
 		return entry;
 	}
@@ -97,8 +129,14 @@ public class Trade {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	
-	
+	public Boolean getWinner() {return winner;}
+	public void setPnl(BigDecimal Pnl) {this.pnl = Pnl;}
+	public BigDecimal getPnl() {return pnl;}
+
+// ---------------------------------------------------------------------
+
+
+
 	
 
 }
