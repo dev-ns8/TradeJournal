@@ -25,7 +25,6 @@ public class Trade {
 	private Boolean winner;  //0 if Loser 1 if winner
 	private String notes;
 
-	//TODO:: Update constructor with new
 
 	public Trade(String instrument, Date entry, BigDecimal entryPrice, boolean actionBuy, int quantity) {
 		this.instrument = instrument;
