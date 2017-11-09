@@ -26,8 +26,13 @@ public class Journal {
 
 	}
 
-	public int getSize(){
-		return trades.size();
+		//Trade newTrade = new Trade(args);
+
+	public String fakeDick(){
+		return "dildo";
 	}
+    public int getSize(){
+        return trades.size();
+    }
 }
 

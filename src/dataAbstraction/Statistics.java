@@ -6,16 +6,16 @@ import java.time.Duration;
 public class Statistics {
 
     public BigDecimal PnL;
-    public BigDecimal winLoss;
+//    public BigDecimal winLoss;
     public double sharpeRatio;
     public Duration trade_duration;
 
-    private Statistics(BigDecimal PnL, BigDecimal winLoss, double sharpeRatio, Duration trade_duration) {
+   /* public Statistics(BigDecimal PnL, BigDecimal winLoss, double sharpeRatio, Duration trade_duration) {
         this.PnL = PnL;
         this.winLoss = winLoss;
         this.sharpeRatio = sharpeRatio;
         this.trade_duration = trade_duration;
-    }
+    } */
 
     public BigDecimal getPnL() {
         return PnL;
@@ -25,13 +25,9 @@ public class Statistics {
         PnL = pnL;
     }
 
-    public BigDecimal getWinLoss() {
-        return winLoss;
-    }
+//    public BigDecimal getWinLoss() {return winLoss;}
 
-    public void setWinLoss(BigDecimal winLoss) {
-        this.winLoss = winLoss;
-    }
+//    public void setWinLoss(BigDecimal winLoss) {this.winLoss = winLoss;}
 
     public double getSharpeRatio() {
         return sharpeRatio;
@@ -49,5 +45,5 @@ public class Statistics {
         this.trade_duration = trade_duration;
     }
 
-    
+
 }

@@ -1,7 +1,6 @@
 package dataAbstraction;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Duration;
 
 public class JournalStats {
@@ -12,6 +11,7 @@ public class JournalStats {
     private BigDecimal biggestWin;
     private BigDecimal biggestLoss;
     private Journal myJournal;
+    public BigDecimal overalPnL;
 
     public JournalStats() {
         //Empty on purpose
@@ -32,6 +32,35 @@ public class JournalStats {
         }
         winLossRatio = wins.divide(loss); //Needs to be fixed, Specifically checked for rounding errors TODO::: RoundingMode? only half steps
     }
+
+    public void computePnl() {
+        for(int i = 0; i < myJournal.getSize(); i++) {
+            overalPnL = overalPnL.add(myJournal.getItem(i).getPnl()); //TODO::Write a Test for this
+        }
+    }
+
+    public void computeBiggestWin() {
+        BigDecimal largest = new BigDecimal(0);
+        for(int i = 0; i < myJournal.getSize(); i++) {
+            if(myJournal.getItem(i).getPnl().compareTo(largest) > 0) {
+                largest = myJournal.getItem(i).getPnl();
+            }
+        }
+        biggestWin = largest;
+    }
+
+    public void computeBiggestLoss() {
+        //Iterate through and find largest value
+        computeBiggestWin();
+        BigDecimal largestLoss = biggestWin;
+        for(int i = 0; i < myJournal.getSize(); i++) {
+            if(myJournal.getItem(i).getPnl().compareTo(largestLoss) < 0) {
+                largestLoss = myJournal.getItem(i).getPnl();
+            }
+        }
+        biggestLoss = largestLoss;
+    }
+
 
 
 

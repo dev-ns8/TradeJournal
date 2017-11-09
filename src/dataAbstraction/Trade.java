@@ -86,6 +86,7 @@ public class Trade {
 		return temp;
 	}
 
+
 	private void updateTradeStats() {
 		//determine trade_duration, winner, and PnL
 		//is run when isComplete == true
@@ -128,6 +129,7 @@ public class Trade {
 		}
 	}
 
+	
 // GETTERS and SETTERS
 	public Date getEntry() {
 		return entry;

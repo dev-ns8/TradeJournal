@@ -5,9 +5,9 @@ import java.util.List;
 public class User {
 	public String username;
 	private String password;
-	private List<String> trade_setups;
-	private List<String> goals;
-	private Journal user_journal;
+	public List<String> trade_setups;
+	public List<String> goals;
+	public Journal user_journal;
 
 	private User(String username, String password, List<String> trade_setups, List<String> goals, Journal user_journal) {
 		this.username = username;
@@ -15,6 +15,12 @@ public class User {
 		this.trade_setups = trade_setups;
 		this.goals = goals;
 		this.user_journal = user_journal;
+	}
+
+	public User() {
+		if(getUser_journal() == null) {
+			user_journal = new Journal();
+		}
 	}
 
 	public String getUsername() {
