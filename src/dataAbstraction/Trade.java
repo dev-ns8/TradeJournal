@@ -86,7 +86,49 @@ public class Trade {
 		if (count!=5) temp = null;
 		return temp;
 	}
-	
+
+	private void updateTradeStats() {
+		//determine trade_duration, winner, and PnL
+		//is run when isComplete == true
+		//buy
+		if(actionBuy){
+			if(exitPrice!=null){
+				int res = exitPrice.compareTo(entryPrice); //-1 if exit is smaller, 0 same, 1 bigger
+				if(res==1){
+					winner=true;
+
+				}
+				else if(res==-1){
+					winner=false;
+				}
+				else{
+					//TODO: If (exitprice==entryprice) does that mean winner/loss or even?
+				}
+			}
+			setPnl(exitPrice.min(entryPrice));
+		}
+		//sell
+		else{
+			if(exitPrice!=null){
+				int res = exitPrice.compareTo(entryPrice); //-1 if exit is smaller, 0 same, 1 bigger
+				if(res==-1){
+					winner=true;
+				}
+				else if(res==1){
+					winner=false;
+				}
+				else{
+					//TODO: If (exitprice==entryprice) does that mean winner/loss or even?
+				}
+			}
+			setPnl(entryPrice.min(exitPrice));
+		}
+		if(exit!=null){
+			long seconds = (exit.getTime()-entry.getTime())/1000;
+			setTrade_duration(Duration.ofSeconds(seconds));
+		}
+	}
+
 // GETTERS and SETTERS
 	public Date getEntry() {
 		return entry;
@@ -168,6 +210,7 @@ public class Trade {
 	}
 	public void setComplete(Boolean complete) {
 		isComplete = complete;
+		if(isComplete) updateTradeStats();
 	}
 	public Duration getTrade_duration() {
 		return trade_duration;

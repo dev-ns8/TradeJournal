@@ -1,36 +1,37 @@
 package dataAbstraction;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 
 public class JournalStats {
-    public Duration winDuration;
-    public Duration lossDuration;
-    public Duration averageDuration;
-    public double winLossRatio;
-    public BigDecimal biggestWin;
-    public BigDecimal biggestLoss;
-    public Journal myJournal;
+    private Duration winDuration;
+    private Duration lossDuration;
+    private Duration averageDuration;
+    private BigDecimal winLossRatio;
+    private BigDecimal biggestWin;
+    private BigDecimal biggestLoss;
+    private Journal myJournal;
 
     public JournalStats() {
         //Empty on purpose
     }
-    /*
+
     public void computeWinLoss() {
-        int length = myJournal.getTrades().size();
+        int length = myJournal.getSize();
         int largest = 0;
-        int wins = 0, loss = 0;
-        for(int i = 0; i< length-1;i++) {
-            if(myJournal.getItem(i).getWinner()) {
-                wins += 1;
-            }
-            else {
-                loss += 1;
+        BigDecimal wins = new BigDecimal(0), loss = new BigDecimal(0);
+        for(int i = 0; i< length;i++) {
+            if(myJournal.getItem(i).getWinner()!=null) {
+                if (myJournal.getItem(i).getWinner()) {
+                    wins.add(new BigDecimal(1));
+                } else {
+                    loss.add(new BigDecimal(1));
+                }
             }
         }
-        winLossRatio = wins/loss; //Needs to be fixed, Specifically checked for rounding errors TODO:::
-
-    }*/
+        winLossRatio = wins.divide(loss); //Needs to be fixed, Specifically checked for rounding errors TODO::: RoundingMode? only half steps
+    }
 
 
 

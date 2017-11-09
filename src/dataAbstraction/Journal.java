@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Journal {
-	public List<Trade> trades;
-	public JournalStats stats;
+	private List<Trade> trades;
+	private JournalStats stats;
 
-	public Journal(ArrayList<Trade> trades) {
-		this.trades = trades;
-	}
 	public Journal() {
-		//Empty on purpose
+		trades = new ArrayList<>();
+		stats = new JournalStats();
 	}
-
 
 
 	public Trade getItem(int index) {
@@ -27,6 +24,10 @@ public class Journal {
 				the newley created Trade object	*/
 
 
+	}
+
+	public int getSize(){
+		return trades.size();
 	}
 }
 
