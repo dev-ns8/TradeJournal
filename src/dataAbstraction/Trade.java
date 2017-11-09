@@ -129,6 +129,9 @@ public class Trade {
 		}
 	}
 
+	private Boolean isNateaDocuhe(){
+		return true;
+	}
 	
 // GETTERS and SETTERS
 	public Date getEntry() {
