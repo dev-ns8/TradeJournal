@@ -33,7 +33,11 @@ public class Journal {
 
 
 
-		Trade newTrade = new Trade(args);
+		//Trade newTrade = new Trade(args);
+
+	}
+	public String fakeDick(){
+		return "dildo";
 	}
 }
 

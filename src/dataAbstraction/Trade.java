@@ -11,7 +11,7 @@ public class Trade {
 	public BigDecimal entryPrice;
 	public BigDecimal exitPrice;
 	public String setup_classification;
-	public String action; //Buy/Sell
+	public Boolean actionBuy; //Buy/Sell 0 for SELL 1 for BUY
 	public int quantity;
 	public BigDecimal stopLoss;
 	public BigDecimal takeProfit;
@@ -24,27 +24,17 @@ public class Trade {
 
 	//TODO:: Update constructor with new
 
-	public Trade(Date entry, Date exit, BigDecimal entryPrice, BigDecimal exitPrice, String setup_classification, String action, int quantity, BigDecimal stopLoss, BigDecimal takeProfit, BigDecimal commissions, String notes, Boolean isComplete, BigDecimal pnl, Duration trade_duration, Boolean winner) {
+	public Trade(String instrument, Date entry,  BigDecimal entryPrice, Boolean action, int quantity) {
+		this.instrument = instrument;
 		this.entry = entry;
-		this.exit = exit;
 		this.entryPrice = entryPrice;
-		this.exitPrice = exitPrice;
-		this.setup_classification = setup_classification;
-		this.action = action;
+		this.actionBuy = action;
 		this.quantity = quantity;
-		this.stopLoss = stopLoss;
-		this.takeProfit = takeProfit;
-		this.commissions = commissions;
-		this.notes = notes;
-		this.isComplete = isComplete;
-		this.pnl = pnl;
-		this.trade_duration = trade_duration;
-		this.winner = winner;
+		this.isComplete = false;
+		this.winner = false;
 	}
 
-	public Trade(Object args) {
-		System.out.println(args);
-	}
+
 
 
 
