@@ -1,9 +1,10 @@
 package dataAbstraction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Journal {
-	public ArrayList<Trade> trades;
+	public List<Trade> trades;
 	public JournalStats stats;
 
 	public Journal(ArrayList<Trade> trades) {
@@ -13,13 +14,7 @@ public class Journal {
 		//Empty on purpose
 	}
 
-	public ArrayList<Trade> getTrades() {
-		return trades;
-	}
 
-	public void setTrades(ArrayList<Trade> trades) {
-		this.trades = trades;
-	}
 
 	public Trade getItem(int index) {
 		return trades.get(index);
@@ -32,8 +27,6 @@ public class Journal {
 				the newley created Trade object	*/
 
 
-
-		Trade newTrade = new Trade(args);
 	}
 }
 

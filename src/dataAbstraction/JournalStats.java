@@ -3,7 +3,7 @@ package dataAbstraction;
 import java.math.BigDecimal;
 import java.time.Duration;
 
-public class JournalStats extends Statistics {
+public class JournalStats {
     public Duration winDuration;
     public Duration lossDuration;
     public Duration averageDuration;
@@ -15,7 +15,7 @@ public class JournalStats extends Statistics {
     public JournalStats() {
         //Empty on purpose
     }
-
+    /*
     public void computeWinLoss() {
         int length = myJournal.getTrades().size();
         int largest = 0;
@@ -29,7 +29,8 @@ public class JournalStats extends Statistics {
             }
         }
         winLossRatio = wins/loss; //Needs to be fixed, Specifically checked for rounding errors TODO:::
-    }
+
+    }*/
 
 
 
