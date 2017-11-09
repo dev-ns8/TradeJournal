@@ -89,7 +89,7 @@ public class Trade {
 
 	private void updateTradeStats() {
 		//determine trade_duration, winner, and PnL
-		//is run when isComplete == true
+		//is ran when isComplete == true
 		//buy
 		if(actionBuy){
 			if(exitPrice!=null){

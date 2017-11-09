@@ -31,6 +31,7 @@ public class Journal {
 	public String fakeDick(){
 		return "dildo";
 	}
+
     public int getSize(){
         return trades.size();
     }
