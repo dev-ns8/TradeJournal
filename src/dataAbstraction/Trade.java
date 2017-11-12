@@ -119,6 +119,7 @@ public class Trade {
 				}
 				else{
 					//TODO: If (exitprice==entryprice) does that mean winner/loss or even?
+					winner = false;
 				}
 			}
 			setPnl(entryPrice.min(exitPrice));
