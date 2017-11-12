@@ -30,16 +30,6 @@ public class Journal {
 		}
 		return false;
 	}
-	public boolean addTradeWithList(List<TradeHelper> args) {
-		Trade temp = Trade.newTrade(args);
-		if(temp!=null){
-			trades.add(temp);
-			updateJournalStats();
-			return true;
-		}
-		return false; //exception garbage shit
-
-	}
 	public boolean removeTrade(Trade newTrade){
 		for(int i =0;i<trades.size();i++){
 			if(newTrade.equals(trades.get(i))){

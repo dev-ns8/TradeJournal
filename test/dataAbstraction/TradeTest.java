@@ -18,6 +18,8 @@ class TradeTest {
     @Test
     void newTradeHappyPath() {
         //todo
+        Date start = new Date();
+        basic = new Trade.TradeBuilder("CAPR",start,new BigDecimal(1.0),true,1,false).build();
     }
     @Test
     void newTradeBadPath() {

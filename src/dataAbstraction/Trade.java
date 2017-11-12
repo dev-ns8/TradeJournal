@@ -241,6 +241,9 @@ public class Trade {
 			this.exitPrice = exitPrice;
 			return this;
 		}
+		public Trade build(){
+			return new Trade(this);
+		}
 	}
 	
 

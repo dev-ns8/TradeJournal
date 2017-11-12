@@ -32,12 +32,6 @@ class JournalTest {
 
     @Test
     void addTradeHappyPath() {
-        //test if in journal and accessible, and passing reference, not copy
-        journal.addTrade(basic);
-        assertTrue(journal.getItem(0).getInstrument().equalsIgnoreCase("appl"));
-        basic.setInstrument("dick");
-        assertTrue(journal.getItem(0).getInstrument().equalsIgnoreCase("dick"));//reference!
-
         //todo:: try and break this method
     }
 
