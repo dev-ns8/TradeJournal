@@ -34,6 +34,25 @@ public class Trade {
 		this.quantity = quantity;
 	}
 
+	public Trade(String instrument, Date entry, Date exit, BigDecimal entryPrice, BigDecimal exitPrice, String setup_classification, boolean actionBuy, int quantity, BigDecimal stopLoss, BigDecimal takeProfit, BigDecimal commissions, Boolean isComplete, BigDecimal pnl, Duration trade_duration, Boolean winner, String notes) {
+		this.instrument = instrument;
+		this.entry = entry;
+		this.exit = exit;
+		this.entryPrice = entryPrice;
+		this.exitPrice = exitPrice;
+		this.setup_classification = setup_classification;
+		this.actionBuy = actionBuy;
+		this.quantity = quantity;
+		this.stopLoss = stopLoss;
+		this.takeProfit = takeProfit;
+		this.commissions = commissions;
+		this.isComplete = isComplete;
+		this.pnl = pnl;
+		this.trade_duration = trade_duration;
+		this.winner = winner;
+		this.notes = notes;
+	}
+
 	public static Trade newTrade(List<TradeHelper> args){
 		int count = 0; //if count if 5, then all required fields are taken care of
 		Trade temp = new Trade(null,null,null,false,0);
@@ -96,7 +115,6 @@ public class Trade {
 				int res = exitPrice.compareTo(entryPrice); //-1 if exit is smaller, 0 same, 1 bigger
 				if(res==1){
 					winner=true;
-
 				}
 				else if(res==-1){
 					winner=false;
@@ -121,18 +139,15 @@ public class Trade {
 					//TODO: If (exitprice==entryprice) does that mean winner/loss or even?
 				}
 			}
-			setPnl(entryPrice.min(exitPrice));
+			setPnl(entryPrice.subtract(exitPrice));
 		}
 		if(exit!=null){
-			long seconds = (exit.getTime()-entry.getTime())/1000;
+			long seconds = (exit.getTime()/1000-entry.getTime())/1000;
 			setTrade_duration(Duration.ofSeconds(seconds));
+			//TODO:: test
 		}
 	}
 
-	private Boolean isNateaDocuhe(){
-		return true;
-	}
-	
 // GETTERS and SETTERS
 	public Date getEntry() {
 		return entry;

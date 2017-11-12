@@ -13,8 +13,15 @@ public class JournalStats {
     private Journal myJournal;
     public BigDecimal overalPnL;
 
-    public JournalStats() {
-        //Empty on purpose
+    public JournalStats(Journal myJournal) {
+        this.myJournal = myJournal;
+    }
+
+    public void updateAll(){
+        computeWinLoss();
+        computePnl();
+        computeBiggestWin();
+        computeBiggestLoss();
     }
 
     public void computeWinLoss() {

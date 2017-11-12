@@ -15,16 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class TradeTest {
     private Trade basic,advanced;
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-
-    }
-
     @Test
     void newTradeHappyPath() {
         //this is the happy path mofo
