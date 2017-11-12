@@ -21,7 +21,7 @@ public class Trade {
 	private BigDecimal commissions;
 	private Boolean isComplete;
 	private String notes;
-	//TODO:: TradeStats object
+	//TODO:: TradeStats object maybe
 	private BigDecimal pnl;
 	private Duration trade_duration;
 	private boolean winner;
@@ -33,8 +33,6 @@ public class Trade {
 		this.entryPrice = builder.entryPrice;
 		this.actionBuy = builder.actionBuy;
 		this.quantity = builder.quantity;
-		setComplete(builder.isComplete); //if true then update trade stats!
-
 		this.exit = builder.exit;
 		this.exitPrice = builder.exitPrice;
 		this.setup_classification = builder.setup_classification;
@@ -42,6 +40,7 @@ public class Trade {
 		this.takeProfit = builder.takeProfit;
 		this.commissions = builder.commissions;
 		this.notes = builder.notes;
+		setComplete(builder.isComplete); //if true then update trade stats!
 	}
 
 	private void updateTradeStats() {
@@ -76,11 +75,12 @@ public class Trade {
 				else{
 					//TODO: If (exitprice==entryprice) does that mean winner/loss or even?
 				}
+				setPnl(entryPrice.subtract(exitPrice));
 			}
-			setPnl(entryPrice.subtract(exitPrice));
+
 		}
 		if(exit!=null){
-			long seconds = (exit.getTime()/1000-entry.getTime())/1000;
+			long seconds = (exit.getTime()-entry.getTime())/1000;
 			setTrade_duration(Duration.ofSeconds(seconds));
 			//TODO:: test
 		}

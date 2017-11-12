@@ -20,13 +20,9 @@ public class Journal {
 	//fucking with trades
 	public boolean addTrade(Trade newTrade){
 		if(newTrade!=null){
-			if(newTrade.getInstrument()!=null&&!newTrade.getInstrument().equalsIgnoreCase(""))
-				if(newTrade.getEntry()!=null)
-					if(newTrade.getEntryPrice()!=null) {
-						trades.add(newTrade);
-						updateJournalStats();
-						return true;
-					}
+			trades.add(newTrade);
+			updateJournalStats();
+			return true;
 		}
 		return false;
 	}
@@ -41,7 +37,6 @@ public class Journal {
 		return false;//eventually return custom exception like, "Trade not found" TODO
 	}
 	public boolean removeTrade(int index){
-
 		if(trades.size()>index){
 			trades.remove(index);
 			updateJournalStats();
@@ -49,17 +44,6 @@ public class Journal {
 		}
 		return false;//eventually return custom exception "Index out of bounds/ Trade DNE"TODO
 
-	}
-	public boolean editTrade(Trade newTrade){
-		//replace unedited trade with edited newTrade
-		for(int i=0;i<trades.size();i++){
-			if(newTrade.equals(trades.get(i))){
-				trades.set(i,newTrade);
-				updateJournalStats();
-				return true;
-			}
-		}
-		return false; //eventually return custom exception "Cannot edit Trade that DNE"TODO
 	}
 	public boolean editTrade(Trade newTrade,int index){
 		//replace unedited trade with edited newTrade by index
