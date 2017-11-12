@@ -4,14 +4,19 @@ import java.math.BigDecimal;
 import java.time.Duration;
 
 public class JournalStats {
-    private Duration winDuration;
-    private Duration lossDuration;
+    private Duration averageWinDuration;
+    private Duration averageLossDuration;
     private Duration averageDuration;
     private BigDecimal winLossRatio;
     private BigDecimal biggestWin;
     private BigDecimal biggestLoss;
     private Journal myJournal;
     public BigDecimal overalPnL;
+    /*
+        TODO:: Need to add instance Variables:
+        expectancy
+        BSO --> from the futurestrader71 video
+     */
 
     public JournalStats() {
         //Empty on purpose
@@ -61,6 +66,23 @@ public class JournalStats {
         biggestLoss = largestLoss;
     }
 
+    public void computeAverageWinDuration() {
+        int count = 0;
+        Duration total = Duration.ofMillis(0);
+        for(int i = 0; i < myJournal.getSize(); i++) {
+            //Check if trades a winner
+            if(myJournal.getItem(i).getWinner()) {
+                total = total.plus(myJournal.getItem(i).getTrade_duration());
+                count++;
+            }
+
+        }
+        averageWinDuration = total.dividedBy(count);
+    }
+
+    public void computeAverageLossDuration() {
+
+    }
 
 
 
