@@ -20,91 +20,29 @@ public class Trade {
 	private BigDecimal takeProfit;
 	private BigDecimal commissions;
 	private Boolean isComplete;
+	private String notes;
+	//TODO:: TradeStats object
 	private BigDecimal pnl;
 	private Duration trade_duration;
-	private Boolean winner;  //0 if Loser 1 if winner
-	private String notes;
+	private boolean winner;
 
 
-	public Trade(String instrument, Date entry, BigDecimal entryPrice, boolean actionBuy, int quantity) {
-		this.instrument = instrument;
-		this.entry = entry;
-		this.entryPrice = entryPrice;
-		this.actionBuy = actionBuy;
-		this.quantity = quantity;
+	public Trade(TradeBuilder builder) {
+		this.instrument = builder.instrument;
+		this.entry = builder.entry;
+		this.entryPrice = builder.entryPrice;
+		this.actionBuy = builder.actionBuy;
+		this.quantity = builder.quantity;
+		setComplete(builder.isComplete); //if true then update trade stats!
+
+		this.exit = builder.exit;
+		this.exitPrice = builder.exitPrice;
+		this.setup_classification = builder.setup_classification;
+		this.stopLoss = builder.stopLoss;
+		this.takeProfit = builder.takeProfit;
+		this.commissions = builder.commissions;
+		this.notes = builder.notes;
 	}
-
-	public Trade(String instrument, Date entry, Date exit, BigDecimal entryPrice, BigDecimal exitPrice, String setup_classification, boolean actionBuy, int quantity, BigDecimal stopLoss, BigDecimal takeProfit, BigDecimal commissions, Boolean isComplete, BigDecimal pnl, Duration trade_duration, Boolean winner, String notes) {
-		this.instrument = instrument;
-		this.entry = entry;
-		this.exit = exit;
-		this.entryPrice = entryPrice;
-		this.exitPrice = exitPrice;
-		this.setup_classification = setup_classification;
-		this.actionBuy = actionBuy;
-		this.quantity = quantity;
-		this.stopLoss = stopLoss;
-		this.takeProfit = takeProfit;
-		this.commissions = commissions;
-		this.isComplete = isComplete;
-		this.pnl = pnl;
-		this.trade_duration = trade_duration;
-		this.winner = winner;
-		this.notes = notes;
-	}
-
-	public static Trade newTrade(List<TradeHelper> args){
-		int count = 0; //if count if 5, then all required fields are taken care of
-		Trade temp = new Trade(null,null,null,false,0);
-		for(int i=0;i<args.size();i++){
-			switch (args.get(i).getId().toLowerCase()){
-				case "instrument":
-					temp.setInstrument((String)args.get(i).getObject());
-					count+=1;
-					break;
-				case "entry":
-					temp.setEntry((Date)args.get(i).getObject());
-					count+=1;
-					break;
-				case "entryprice":
-					temp.setEntryPrice((BigDecimal) args.get(i).getObject());
-					count+=1;
-					break;
-				case "actionbuy":
-					temp.setActionBuy((boolean)args.get(i).getObject());
-					count+=1;
-					break;
-				case "quantity":
-					temp.setQuantity((int)args.get(i).getObject());
-					count+=1;
-					break;
-				case "exit":
-					temp.setExit((Date)args.get(i).getObject());
-					break;
-				case "exitprice":
-					temp.setExitPrice((BigDecimal) args.get(i).getObject());
-					break;
-				case "setup_classification":
-					temp.setSetup_classification((String)args.get(i).getObject());
-					break;
-				case "stoploss":
-					temp.setStopLoss((BigDecimal) args.get(i).getObject());
-					break;
-				case "takeprofit":
-					temp.setTakeProfit((BigDecimal) args.get(i).getObject());
-					break;
-				case "commissions":
-					temp.setCommissions((BigDecimal) args.get(i).getObject());
-					break;
-				case "notes":
-					temp.setNotes((String)args.get(i).getObject());
-					break;
-			}
-		}
-		if (count!=5) temp = null;
-		return temp;
-	}
-
 
 	private void updateTradeStats() {
 		//determine trade_duration, winner, and PnL
@@ -149,6 +87,19 @@ public class Trade {
 	}
 
 // GETTERS and SETTERS
+	public void setComplete(Boolean complete) {
+	isComplete = complete;
+	if(isComplete) updateTradeStats();
+}
+	public void setExit(Date exit) {
+		this.exit = exit;
+		updateTradeStats();
+	}
+	public void setExitPrice(BigDecimal exitPrice) {
+		this.exitPrice = exitPrice;
+		updateTradeStats();
+	}
+
 	public Date getEntry() {
 		return entry;
 	}
@@ -158,20 +109,15 @@ public class Trade {
 	public Date getExit() {
 		return exit;
 	}
-	public void setExit(Date exit) {
-		this.exit = exit;
-	}
 	public BigDecimal getEntryPrice() {
 		return entryPrice;
 	}
 	public void setEntryPrice(BigDecimal entryPrice) {
 		this.entryPrice = entryPrice;
+
 	}
 	public BigDecimal getExitPrice() {
 		return exitPrice;
-	}
-	public void setExitPrice(BigDecimal exitPrice) {
-		this.exitPrice = exitPrice;
 	}
 	public String getSetup_classification() {
 		return setup_classification;
@@ -227,10 +173,9 @@ public class Trade {
 	public Boolean getComplete() {
 		return isComplete;
 	}
-	public void setComplete(Boolean complete) {
-		isComplete = complete;
-		if(isComplete) updateTradeStats();
-	}
+
+
+
 	public Duration getTrade_duration() {
 		return trade_duration;
 	}
@@ -243,8 +188,60 @@ public class Trade {
 
 // ---------------------------------------------------------------------
 
+	public static class TradeBuilder{
+		String instrument;
+		Date entry;
+		BigDecimal entryPrice;
+		boolean actionBuy;
+		int quantity;
+		Date exit;
+		BigDecimal exitPrice;
+		String setup_classification;
+		BigDecimal stopLoss;
+		BigDecimal takeProfit;
+		BigDecimal commissions;
+		String notes;
+		boolean isComplete;
 
 
+		public TradeBuilder(String instrument, Date entry, BigDecimal entryPrice, boolean actionBuy, int quantity, boolean isComplete) {
+			this.instrument = instrument;
+			this.entry = entry;
+			this.entryPrice = entryPrice;
+			this.actionBuy = actionBuy;
+			this.quantity = quantity;
+			this.isComplete = isComplete;
+		}
+
+		public TradeBuilder exit(Date exit){
+			this.exit = exit;
+			return this;
+		}
+		public TradeBuilder setup_classification(String setup_classification){
+			this.setup_classification = setup_classification;
+			return this;
+		}
+		public TradeBuilder stopLoss(BigDecimal stopLoss){
+			this.stopLoss = stopLoss;
+			return this;
+		}
+		public TradeBuilder takeProfit(BigDecimal takeProfit){
+			this.takeProfit = takeProfit;
+			return this;
+		}
+		public TradeBuilder commissions(BigDecimal commissions){
+			this.commissions = commissions;
+			return this;
+		}
+		public TradeBuilder notes(String notes){
+			this.notes = notes;
+			return this;
+		}
+		public TradeBuilder exitPrice(BigDecimal exitPrice){
+			this.exitPrice = exitPrice;
+			return this;
+		}
+	}
 	
 
 }

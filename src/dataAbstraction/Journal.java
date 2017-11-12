@@ -17,26 +17,34 @@ public class Journal {
 		stats = new JournalStats(this);
 	}
 
-
-	public Trade getItem(int index) {
-		return trades.get(index);
-	}
-
+	//fucking with trades
 	public boolean addTrade(Trade newTrade){
 		if(newTrade!=null){
 			if(newTrade.getInstrument()!=null&&!newTrade.getInstrument().equalsIgnoreCase(""))
 				if(newTrade.getEntry()!=null)
 					if(newTrade.getEntryPrice()!=null) {
 						trades.add(newTrade);
+						updateJournalStats();
 						return true;
 					}
 		}
 		return false;
 	}
+	public boolean addTradeWithList(List<TradeHelper> args) {
+		Trade temp = Trade.newTrade(args);
+		if(temp!=null){
+			trades.add(temp);
+			updateJournalStats();
+			return true;
+		}
+		return false; //exception garbage shit
+
+	}
 	public boolean removeTrade(Trade newTrade){
 		for(int i =0;i<trades.size();i++){
 			if(newTrade.equals(trades.get(i))){
 				trades.remove(i);
+				updateJournalStats();
 				return true;
 			}
 		}
@@ -46,6 +54,7 @@ public class Journal {
 
 		if(trades.size()>index){
 			trades.remove(index);
+			updateJournalStats();
 			return true;
 		}
 		return false;//eventually return custom exception "Index out of bounds/ Trade DNE"TODO
@@ -56,6 +65,7 @@ public class Journal {
 		for(int i=0;i<trades.size();i++){
 			if(newTrade.equals(trades.get(i))){
 				trades.set(i,newTrade);
+				updateJournalStats();
 				return true;
 			}
 		}
@@ -66,34 +76,26 @@ public class Journal {
 		if(newTrade!=null){
 			if(index<trades.size()){ //index inbounds
 				trades.set(index,newTrade);
+				updateJournalStats();
 				return true;
 			}
 		}
 		return false; //eventually return custom exception "Cannot edit Trade that DNE"TODO
 	}
 
-	public void addTradeWithList(List<TradeHelper> args) {
-		// 1. Iterate through argument list and check the length of array
-		//2. If more than 5, create a Trade with the 5 mandatory arguments and pass the rest into helper method
-		/* 3. have helperMethod iterate through arguments and decipher what arguments it has and use setters to add to
-				the newley created Trade object	*/
-		Trade temp = Trade.newTrade(args);
-		if(temp!=null) trades.add(temp);
-		else {//throw exception
-			}
-		updateStats();
-
-	}
-
-	private void updateStats() {
+	//stats
+	private void updateJournalStats() {
 		stats.updateAll();
 	}
-
-	//Trade newTrade = new Trade(args);
-
-
+	//general trade list stuff
     public int getSize(){
         return trades.size();
     }
+	public Trade getItem(int index) {
+		if(trades.size()>index) {
+			return trades.get(index);
+		}
+		return null; //exception shittt
+	}
 }
 

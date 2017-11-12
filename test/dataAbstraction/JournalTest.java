@@ -19,18 +19,6 @@ class JournalTest {
     @BeforeEach
     void setUp() {
         journal = new Journal();
-
-        List<TradeHelper> args= new ArrayList<>();
-
-        Date entry = new Date();
-        args.add(new TradeHelper("instrument","APPL"));
-        args.add(new TradeHelper("entry",entry));
-        args.add(new TradeHelper("entryPrice",new BigDecimal(1.0)));
-        args.add(new TradeHelper("actionBuy",true));
-        args.add(new TradeHelper("quantity",100));
-        basic = Trade.newTrade(args);
-
-        advanced = new Trade("CAPR",new Date(),new BigDecimal(2.0),false,100);
     }
     @AfterEach
     void tearDown() {
@@ -49,6 +37,8 @@ class JournalTest {
         assertTrue(journal.getItem(0).getInstrument().equalsIgnoreCase("appl"));
         basic.setInstrument("dick");
         assertTrue(journal.getItem(0).getInstrument().equalsIgnoreCase("dick"));//reference!
+
+        //todo:: try and break this method
     }
 
     @Test
