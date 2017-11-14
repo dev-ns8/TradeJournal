@@ -60,7 +60,7 @@ public class Trade {
 					//TODO: If (exitprice==entryprice) does that mean winner/loss or even?
 				}
 			}
-			setPnl(exitPrice.min(entryPrice));
+			setPnl(exitPrice.subtract(entryPrice));
 		}
 		//sell
 		else{
