@@ -96,7 +96,7 @@ public class JournalStats {
 
     public void computeSharpe() {
         DescriptiveStatistics stat = new DescriptiveStatistics();
-        
+
     }
 
     public void updateAll() {
