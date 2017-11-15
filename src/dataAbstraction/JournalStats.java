@@ -1,11 +1,13 @@
 package dataAbstraction;
 
+import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
+
 import java.math.BigDecimal;
 import java.time.Duration;
 
 public class JournalStats {
-    private Duration winDuration;
-    private Duration lossDuration;
+    private Duration averageWinDuration;
+    private Duration averageLossDuration;
     private Duration averageDuration;
     private BigDecimal winLossRatio;
     private BigDecimal biggestWin;
@@ -17,12 +19,6 @@ public class JournalStats {
         this.myJournal = myJournal;
     }
 
-    public void updateAll(){
-        computeWinLoss();
-        computePnl();
-        computeBiggestWin();
-        computeBiggestLoss();
-    }
 
     public void computeWinLoss() {
         int length = myJournal.getSize();
@@ -68,6 +64,50 @@ public class JournalStats {
         biggestLoss = largestLoss;
     }
 
+    public void computeAverageWinDuration() {
+        int count = 0;
+        Duration total = Duration.ofMillis(0);
+        for(int i = 0; i < myJournal.getSize(); i++) {
+            //Check if trades a winner
+            if(myJournal.getItem(i).getWinner()) {
+                total = total.plus(myJournal.getItem(i).getTrade_duration());
+                count++;
+            }
+        }
+        averageWinDuration = total.dividedBy(count);
+    }
+
+    public void computeAverageLossDuration() {
+        int count = 0;
+        Duration total = Duration.ofMillis(0);
+        for(int i = 0; i<myJournal.getSize();i++) {
+            //Check if trade is a loser
+            if(!myJournal.getItem(i).getWinner()) {
+                total = total.plus(myJournal.getItem(i).getTrade_duration());
+                count++;
+            }
+        }
+        averageLossDuration = total.dividedBy(count);
+    }
+
+    public void computeAverageDuration() {
+
+    }
+
+    public void computeSharpe() {
+        DescriptiveStatistics stat = new DescriptiveStatistics();
+        
+    }
+
+    public void updateAll() {
+        computeBiggestWin();
+        computeAverageLossDuration();
+        computeAverageWinDuration();
+        computePnl();
+        computeBiggestLoss();
+        computeWinLoss();
+        computeAverageDuration();
+    }
 
 
 
